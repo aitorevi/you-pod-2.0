@@ -4,7 +4,7 @@ import Providers from "@/components/Providers";
 import Footer from "@/components/Footer";
 
 export const metadata = {
-  title: "Not-You-Pod",
+  title: "You-Pod",
   description: "A podcast about the things we love to hate.",
 };
 

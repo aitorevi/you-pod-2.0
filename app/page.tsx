@@ -1,3 +1,3 @@
 export default function Home() {
-  return <h1 className="h-screen">Not-You-Pod</h1>;
+  return <h1 className="h-screen">You-Pod</h1>;
 }
