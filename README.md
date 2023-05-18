@@ -1,4 +1,4 @@
-# Not-you-pod
+# You-pod
 
 This is a project for showing off how to work with auth in Nextjs13 and Firebase.
 
