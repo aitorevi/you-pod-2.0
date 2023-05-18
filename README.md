@@ -1,13 +1,18 @@
-# You-pod
+# You-pod 🎙️
 
-This is a project for showing off how to work with auth in Nextjs13 and Firebase.
+This is a project for showing off how to work with auth in Next.js 13 and Firebase. 🔐
 
-## Requirements
+## Requirements ✅
 
-- Node version >= 18.0.0
-- Copy `.env.template` to `.env` and fill in the values
+- Node version >= 18.0.0 📦
+- Copy `.env.template` to `.env` and fill in the values 🔑
 
-## Getting Started
+## Commit style 💻
+
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) 📝
+- [Gitmoji](https://gitmoji.dev/) 🎨
+
+## Getting Started 🚀
 
 First, run the development server:
 
@@ -19,28 +24,28 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. 🌐
 
-## Firebase
+## Firebase 🔥
 
-This project uses Firebase for authentication and database. You can create a new project on [Firebase](https://firebase.google.com/) and fill in the values in `.env` file.
+This project uses Firebase for authentication and database. You can create a new project on [Firebase](https://firebase.google.com/) and fill in the values in the `.env` file.
 
-### Users collection schema
+### Users collection schema 📚
 
-All fields are required and must be filled as string:
+All fields are required and must be filled as a string:
 
 ```
 email: "an_email"
 id: "uuid"
 name: "your_name"
-password :"$2b$10$ECvSuVcvZOwpHj1ToFTReO05wXhfJtzsbM3GXwYUc4q3Q9Ow6VdkO" (admin)
+password: "$2b$10$ECvSuVcvZOwpHj1ToFTReO05wXhfJtzsbM3GXwYUc4q3Q9Ow6VdkO" (admin)
 role: "admin|user"
 username: "your_username"
 ```
 
-### Podcasts collection schema
+### Podcasts collection schema 🎧
 
-All fields are required and must be filled as string:
+All fields are required and must be filled as a string:
 
 ```
 title: "a_title"
@@ -48,10 +53,11 @@ description: "a_description"
 url: "a_url"
 ```
 
-## Learn More
+## Learn More 📖
 
-- [Material Tailwind UI](https://material-tailwind.com/)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Firebase](https://firebase.google.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind UI](https://tailwindui.com/)
+- [Material Tailwind UI](https://material-tailwind.com/) 🎨
+- [Next.js Documentation](https://nextjs.org/docs) 📚
+- [Firebase](https://firebase.google.com/) 🔥
+- [Tailwind CSS](https://tailwindcss.com/) 🌈
+- [Tailwind UI](https://tailwindui.com/) 🎨
+
