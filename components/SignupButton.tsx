@@ -16,8 +16,9 @@ const SignupButton = () => {
       variant="gradient"
       size="sm"
       fullWidth
+      style={{ boxShadow: "0 1px 4px rgba(0, 0, 0, 0.5)" }}
     >
-      Sign Up
+      Sign_Up
     </Button>
   );
 };

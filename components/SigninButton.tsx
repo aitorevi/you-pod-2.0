@@ -26,6 +26,7 @@ const SigninButton = () => {
       size="sm"
       color="blue-gray"
       fullWidth
+      style={{ boxShadow: "0 1px 2px rgba(0, 0, 0, 0.5)" }}
     >
       Sign In
     </Button>
