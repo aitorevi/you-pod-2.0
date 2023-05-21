@@ -60,6 +60,3 @@ Here's a diagram illustrating the flow between the frontend and backend when usi
           <-------+|                                   |
                       |                                   |
 ```
-
-## Conclusion
-Understanding the flow of JWT between the frontend and backend is crucial for implementing secure authentication and authorization mechanisms in web applications and APIs. By following this flow, the frontend can securely authenticate the user and include the JWT in subsequent requests, allowing the backend to verify the user's identity and enforce access control based on the user's roles or claims. This enables the development of robust and secure web applications.
