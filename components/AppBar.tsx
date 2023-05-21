@@ -31,7 +31,7 @@ function NavList(props: NavListProps) {
             {props.isAdmin && (
                 <Typography
                     as="a"
-                    href="#"
+                    href="/admin"
                     variant="small"
                     color="blue-gray"
                     className="font-normal"
