@@ -5,7 +5,6 @@ import {Bars3Icon, UserCircleIcon, XMarkIcon,} from "@heroicons/react/24/outline
 import SigninButton from "./SigninButton";
 import SignupButton from "./SignupButton";
 import {useSession} from "next-auth/react";
-import Image from "next/image";
 import {IconMicro} from "@/components/IconMicro";
 import Link from "next/link";
 
@@ -72,7 +71,7 @@ export default function AppBar() {
                 {/*</Typography>*/}
                 <div className="flex items-center">
                     <Link href="/">
-                        <Image src={'you-pod_sm.svg'} alt={''} width={120} height={35}/>
+                        <img src={'you-pod_sm.svg'} alt={''} className="h-auto w-100"/>
                     </Link>
                     <div className="hidden lg:block ml-5">
                         <NavList isAdmin={isAdmin}/>
