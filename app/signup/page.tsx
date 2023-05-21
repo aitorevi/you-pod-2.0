@@ -57,6 +57,8 @@ export default function SignUpPage() {
         >
           <div className="mb-4 flex flex-col gap-6">
             <Input
+              id="username-input"
+              type="text"
               minLength={6}
               size="lg"
               label="Username"
@@ -65,6 +67,7 @@ export default function SignUpPage() {
               required={true}
             />
             <Input
+              id="name-input"
               type="text"
               minLength={3}
               size="lg"
@@ -74,6 +77,7 @@ export default function SignUpPage() {
               required={true}
             />
             <Input
+              id="email-input"
               type="email"
               size="lg"
               label="Email"
@@ -82,6 +86,7 @@ export default function SignUpPage() {
               required={true}
             />
             <Input
+              id="password-input"
               type="password"
               size="lg"
               label="Password"
@@ -90,7 +95,7 @@ export default function SignUpPage() {
               required={true}
             />
           </div>
-          <Button type="submit" className="mt-6" fullWidth>
+          <Button id="submit-button" type="submit" className="mt-6" fullWidth>
             Register
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
@@ -105,7 +110,7 @@ export default function SignUpPage() {
           </Typography>
         </form>
         {errorMessage && (
-          <Typography color="red" className="mt-4 text-center font-normal">
+          <Typography id="error-message" color="red" className="mt-4 text-center font-normal">
             {errorMessage}
           </Typography>
         )}
