@@ -28,35 +28,35 @@ The JWT flow between the frontend and backend typically involves the following s
 Here's a diagram illustrating the flow between the frontend and backend when using JWT for authentication:
 
 ```
-          +-----------------------+            +----------------------+
-          |       Frontend        |            |       Backend        |
-          +-----------------------+            +----------------------+
-                      |                                   |
-      1. User          |                                   |
-         Authentication                                  |
-          Request        |                                   |
-          +------->+                                   |
-                      |  2. Backend Authentication        |
-                      |  +---------------------------->  |
-                      |                                   |
-                      |        3. JWT Issuance             |
-                      |  <----------------------------+   |
-                      |                                   |
-                      |  4. Frontend Storage               |
-                      |                                   |
-                      |                                   |
-      5. Subsequent    |                                   |
-         Request        |                                   |
-          +------->+                                   |
-                      |                                   |
-                      |  6. Backend Verification           |
-                      |  +---------------------------->  |
-                      |                                   |
-                      |        7. Access Control           |
-                      |                                   |
-                      |                                   |
-      8. Response      |                                   |
-         Received      |                                   |
-          <-------+|                                   |
-                      |                                   |
+                        +-----------------------+            +----------------------+
+                        |       Frontend        |            |       Backend        |
+                        +-----------------------+            +----------------------+
+                                    |                                   |
+      1. User                       |                                   |
+         Authentication             |                                   |    
+          Request                   |                                   |
+          +------->+                |                                   |
+                                    |  2. Backend Authentication        |
+                                    |  +---------------------------->   |
+                                    |                                   |
+                                    |        3. JWT Issuance            |
+                                    |  <----------------------------+   |
+                                    |                                   |
+                                    |  4. Frontend Storage              |
+                                    |                                   |
+                                    |                                   |
+      5. Subsequent                 |                                   |
+         Request                    |                                   |
+          +------->+                |                                   |
+                                    |                                   |
+                                    |  6. Backend Verification          |
+                                    |  +---------------------------->   |
+                                    |                                   |
+                                    |        7. Access Control          |
+                                    |                                   |
+                                    |                                   |
+      8. Response                   |                                   |
+         Received                   |                                   |
+          <-------+|                |                                   |
+                                    |                                   |
 ```
