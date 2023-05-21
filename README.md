@@ -26,6 +26,11 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. 🌐
 
+## Internal documentation 📚
+
+- [Password Encryption](docs/password-encryption.md) 🔐
+- [JWT](docs/jwt-flow.md) 🔑
+
 ## Firebase 🔥
 
 This project uses Firebase for authentication and database. You can create a new project on [Firebase](https://firebase.google.com/) and fill in the values in the `.env` file.
