@@ -1,6 +1,16 @@
 "use client";
 import React, {useState} from "react";
-import {Button, Card, CardBody, CardFooter, CardHeader, Dialog, Input, Typography} from "@material-tailwind/react";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Dialog,
+    Input,
+    Textarea,
+    Typography
+} from "@material-tailwind/react";
 import {useRouter} from "next/navigation";
 
 const AdminPage = () => {
@@ -9,6 +19,7 @@ const AdminPage = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
 
     const [open, setOpen] = useState<boolean>(false);
     const handleOpen = () => setOpen((cur) => !cur);
@@ -52,7 +63,7 @@ const AdminPage = () => {
                 <div>
                     <Button onClick={handleOpen} className="bg-[#55b048]">New podcast</Button>
                     <Dialog
-                        size="xs"
+                        size="lg"
                         open={open}
                         handler={handleOpen}
                         className="bg-transparent shadow-none"
@@ -64,7 +75,7 @@ const AdminPage = () => {
                                 className="mb-4 grid h-28 place-items-center"
                             >
                                 <Typography variant="h3" color="white">
-                                    Create a podcast 🎙
+                                    Create a podcast
                                 </Typography>
                             </CardHeader>
                             <CardBody className="flex flex-col gap-4">
@@ -75,9 +86,8 @@ const AdminPage = () => {
                                     size="lg"
                                     onChange={(e) => setTitle(e.target.value)}
                                 />
-                                <Input
+                                <Textarea
                                     id="description"
-                                    type="text"
                                     label="Description"
                                     size="lg"
                                     onChange={(e) => setDescription(e.target.value)}
@@ -90,26 +100,13 @@ const AdminPage = () => {
                                     onChange={(e) => setUrl(e.target.value)}
                                 />
                             </CardBody>
-                            <CardFooter className="pt-0">
+                            <CardFooter className="pt-0 justify-center ">
                                 <Button
                                     variant="gradient"
                                     onClick={handleSubmit} fullWidth
                                 >
                                     Create postcast
                                 </Button>
-                                <Typography variant="small" className="mt-6 flex justify-center">
-                                    Don&apos;t have an account?
-                                    <Typography
-                                        as="a"
-                                        href="/signup"
-                                        variant="small"
-                                        color="blue"
-                                        className="ml-1 font-bold"
-                                        onClick={handleOpen}
-                                    >
-                                        Sign up
-                                    </Typography>
-                                </Typography>
                             </CardFooter>
                         </Card>
                     </Dialog>
@@ -119,6 +116,8 @@ const AdminPage = () => {
                         </Typography>
                     )}
                 </div>
+            {/* Render podcasts list */}
+
             </div>
         </>
 );
