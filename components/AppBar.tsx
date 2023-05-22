@@ -61,14 +61,6 @@ export default function AppBar() {
     return (
         <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
             <div className="flex items-center justify-between text-blue-gray-900">
-                {/*<Typography*/}
-                {/*  as="a"*/}
-                {/*  href="/"*/}
-                {/*  variant="h6"*/}
-                {/*  className="mr-4 cursor-pointer py-1.5 lg:ml-2"*/}
-                {/*>*/}
-                {/*  You pod 3*/}
-                {/*</Typography>*/}
                 <div className="flex items-center">
                     <Link href="/">
                         <img src={'you-pod_sm.svg'} alt={''} className="h-auto w-100"/>

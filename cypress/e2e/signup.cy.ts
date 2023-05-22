@@ -48,8 +48,8 @@ describe("POST", () => {
     cy.wait("@createUser").then((interception: any) => {
       expect(interception.response.statusCode).to.eq(409);
       cy.get("#error-message")
-        .should("be.visible")
-        .and("contain.text", "Username already taken");
+          .should("be.visible")
+          .and("contain.text", "Username already taken");
     });
   });
 });
