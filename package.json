@@ -5,7 +5,7 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "test": "start-server-and-test dev http://localhost:3000 cy:run",
+    "test": "next build && start-server-and-test start http://localhost:3000 cy:run",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
