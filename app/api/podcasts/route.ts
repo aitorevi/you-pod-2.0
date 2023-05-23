@@ -47,9 +47,14 @@ export async function GET(request: Request) {
         collection(db, "podcasts")
     );
     const podcastsDocs = await getDocs(podcastsQuery);
-    const podcasts = podcastsDocs.docs.map((doc) => doc.data())
+    const podcasts = podcastsDocs.docs.map((doc) => {
+        return {
+            id: doc.id,
+            ...doc.data()
+        }
+    })
     const body = {
-        podcasts: podcasts
+        podcasts
     };
     return new Response(JSON.stringify(body));
 }
