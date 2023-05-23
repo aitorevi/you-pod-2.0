@@ -39,3 +39,17 @@ export async function POST(request: Request) {
     };
     return new Response(JSON.stringify(body));
 }
+
+
+export async function GET(request: Request) {
+    // TODO: To be implemented
+    const { title }: RequestBody = await request.json();
+    const podcastsQuery = query(
+        collection(db, "podcasts")
+    );
+    const podcastsDocs = await getDocs(podcastsQuery);
+    const body = {
+        podcastsDocs
+    };
+    return new Response(JSON.stringify(body));
+}

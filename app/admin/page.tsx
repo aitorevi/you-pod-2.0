@@ -1,5 +1,5 @@
 "use client";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Button,
     Card,
@@ -12,14 +12,15 @@ import {
     Typography
 } from "@material-tailwind/react";
 import {useRouter} from "next/navigation";
+import {db} from "@/lib/firebase";
+import {collection, getDocs, query} from "@firebase/firestore";
 
-const AdminPage = () => {
+const AdminPage = ({ podcasts }:any) => {
     const router = useRouter();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-
 
     const [open, setOpen] = useState<boolean>(false);
     const handleOpen = () => setOpen((cur) => !cur);
@@ -53,14 +54,29 @@ const AdminPage = () => {
             setErrorMessage("An error occurred. Please try again."); // Set a generic error message
         }
     };
-
     return (
         <>
             <div className="container mx-auto max-w-screen-xl h-screen my-3 rounded-lg shadow-md px-4 py-2">
                 <div>
                     <h1 className="text-4xl font-bold text-center text-blue-gray-900">Administration panel</h1>
-                </div>
-                <div>
+
+
+                    {/*{*/}
+                    {/*    podcastList.map((podcast) => (*/}
+                    {/*        <Card key={podcast.id} className="mx-auto w-full max-w-[24rem]">*/}
+                    {/*            <CardHeader*/}
+                    {/*                variant="gradient"*/}
+                    {/*                color="blue"*/}
+                    {/*                className="mb-4 grid h-28 place-items-center"*/}
+                    {/*            >*/}
+                    {/*                <Typography variant="h3" color="white">*/}
+                    {/*                    {podcast.data().title}*/}
+                    {/*                </Typography>*/}
+                    {/*            </CardHeader>*/}
+                    {/*        </Card>*/}
+                    {/*    ))*/}
+                    {/*}*/}
+
                     <Button onClick={handleOpen} className="bg-[#55b048]">New podcast</Button>
                     <Dialog
                         size="lg"
@@ -116,10 +132,38 @@ const AdminPage = () => {
                         </Typography>
                     )}
                 </div>
-            {/* Render podcasts list */}
+                {/* Render podcasts list */}
 
             </div>
         </>
-);
+    );
 };
+
+
+async function fetchPodcasts() {
+    // TODO: To be implemented
+    const podcastCollection = collection(db, "podcasts");
+    const snapshot = await getDocs(podcastCollection);
+    const podcasts:any = [];
+
+    snapshot.forEach((doc) => {
+        const podcastData = doc.data();
+        podcasts.push({
+            id: doc.id,
+            ...podcastData,
+        });
+    });
+
+    return podcasts;
+}
+export async function getServerSideProps() {
+    const podcasts = await fetchPodcasts();
+
+    return {
+        props: {
+            podcasts: podcasts.title,
+        },
+    };
+}
+
 export default AdminPage;
