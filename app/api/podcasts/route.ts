@@ -14,7 +14,7 @@ interface RequestBody {
 }
 
 export async function POST(request: Request) {
-    const { title, description , url }: RequestBody = await request.json();
+    const { title, description, url }: RequestBody = await request.json();
     const podcastsQuery = query(
         collection(db, "podcasts"),
         where("title", "==", title)
@@ -43,13 +43,13 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
     // TODO: To be implemented
-    const { title }: RequestBody = await request.json();
     const podcastsQuery = query(
         collection(db, "podcasts")
     );
     const podcastsDocs = await getDocs(podcastsQuery);
+    const podcasts = podcastsDocs.docs.map((doc) => doc.data())
     const body = {
-        podcastsDocs
+        podcasts: podcasts
     };
     return new Response(JSON.stringify(body));
 }
