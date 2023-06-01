@@ -6,7 +6,7 @@ import {
     Textarea,
     Typography,
 } from "@material-tailwind/react";
-import {useRouter} from "next/navigation";
+import {PodcastModal} from "@/components/PodcastModal";
 
 interface Podcast {
     id: string;
