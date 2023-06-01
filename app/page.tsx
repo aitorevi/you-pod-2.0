@@ -4,7 +4,7 @@ export default function Home() {
     return (
         <>
             <div className="min-h-screen overflow-x-hidden">
-                <div className="flex flex-col gap-8 text-center m-12 items-center">
+                <div className="flex flex-col gap-8 text-center m-16 items-center">
                     <h1 className="max-w-2xl font-mono font-bold text-7xl drop-shadow-lg">
                         A unique way to listen to your favorite programs
                     </h1>
