@@ -128,7 +128,7 @@ const AdminPage = () => {
 
     return (
         <>
-            <div className="container mx-auto max-w-screen-xl my-3 rounded-lg shadow-md px-4 py-2">
+            <div className="container h-screen mx-auto max-w-screen-xl my-3 rounded-lg shadow-md px-4 py-2">
                 <h1 className="text-4xl font-bold text-center text-blue-gray-900">
                     Administration panel
                 </h1>
@@ -192,7 +192,7 @@ const AdminPage = () => {
                                     />
                                     <Input
                                         id="url"
-                                        type={url}
+                                        type="url"
                                         label="Url"
                                         size="lg"
                                         value={url}

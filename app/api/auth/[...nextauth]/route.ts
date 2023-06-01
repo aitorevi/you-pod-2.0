@@ -6,14 +6,18 @@ const nextAuthUrl: string = process.env.NEXTAUTH_URL ?? "http://localhost:3000";
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "domain Credentials",
+      name: "Credentials",
       credentials: {
         username: {
           label: "Username",
           type: "text",
-          placeholder: "a wonderfull name",
+          placeholder: "a wonderful username",
         },
-        password: { label: "Password", type: "password" },
+        password: {
+          label: "Password",
+          type: "password" ,
+          placeholder: "a difficult password",
+        },
       },
       async authorize(credentials, req) {
         const res = await fetch(`${nextAuthUrl}/api/login`, {
@@ -48,7 +52,7 @@ const handler = NextAuth({
   },
   theme: {
     colorScheme: "auto", // "auto" | "dark" | "light"
-    logo: "/next.svg", // Absolute URL to image
+    logo: "/you-pod_sm.svg", // Absolute URL to image
   },
 });
 
