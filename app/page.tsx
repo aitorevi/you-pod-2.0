@@ -10,7 +10,7 @@ export default function Home() {
                     </h1>
 
                 </div>
-                <div className="flex items-center justify-center py-2">
+                <div className="flex items-center justify-center pt-22 pb-24">
                     <img
                         className="lg:h-96 lg:w-96 md:h-72 md:w-72 sm:h-48 sm:w-48 rounded-lg shadow-xl shadow-blue-gray-900/50 m-8"
                         src="/modern.png"
@@ -37,7 +37,7 @@ export default function Home() {
                         alt="red"
                     />
                 </div>
-                <div className="flex items-center justify-center mx-4 my-28 py-2">
+                <div className="flex items-center justify-center py-56 bg-gray-50">
                     <NewsletterCard/>
                 </div>
             </div>
