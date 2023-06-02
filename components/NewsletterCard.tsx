@@ -8,6 +8,7 @@ import {
 } from "@material-tailwind/react";
 import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import {useState} from "react";
+import {Container} from "postcss";
 
 export default function NewsletterCard() {
     const [email, setEmail] = useState("");
@@ -62,6 +63,7 @@ export default function NewsletterCard() {
                     Want to be notified by email when I publish new blog posts or new podcasts? No advertising, just
                     emails when there are new posts.
                 </Typography>
+                <div className="container">
                     <div
                         className="flex flex-col mb-2">
                         <Input
@@ -80,6 +82,8 @@ export default function NewsletterCard() {
                             strokeWidth={2}
                             className="w-4 h-4"/>
                     </Button>
+                </div>
+
             </CardBody>
         </Card>
     );

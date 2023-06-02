@@ -174,7 +174,11 @@ const AdminPage = () => {
                         <div style={{display: "grid", gridTemplateColumns: "10fr 1fr 1fr", gridTemplateRows: "1fr"}}>
                             <div className="ml-5 my-auto">{podcast.title}</div>
                             <div className="flex my-1 justify-end">
-                                <PodcastModal btnTitle="Edit" title="Edit Podcast" handleSubmit={(e:any) => {handleUpdate(e, podcast.id)}} handleOpenUpdate={() => handleOpenUpdate(podcast.id)}>
+                                <PodcastModal
+                                    btnTitle="Edit"
+                                    title="Edit Podcast"
+                                    handleSubmit={(e:any) => {handleUpdate(e, podcast.id)}}
+                                    handleOpenUpdate={() => handleOpenUpdate(podcast.id)}>
                                     <Input
                                         id="title"
                                         type="text"
