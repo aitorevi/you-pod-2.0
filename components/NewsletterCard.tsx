@@ -8,7 +8,6 @@ import {
 } from "@material-tailwind/react";
 import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import {useState} from "react";
-import {Container} from "postcss";
 
 export default function NewsletterCard() {
     const [email, setEmail] = useState("");
@@ -40,11 +39,9 @@ export default function NewsletterCard() {
             console.error("An error occurred:", error);
             setErrorMessage("An error occurred. Please try again."); // Set a generic error message
         }
-
     }
-
     return (
-        <Card className="flex-row w-full max-w-[48rem] shadow-xl">
+        <Card className="flex-row w-full max-w-[48rem] shadow-xl mx-5">
             <CardHeader shadow={false} floated={false} className="w-2/5 shrink-0 m-0 rounded-r-none">
                 <img
                     src="/newsletter.png"
@@ -71,6 +68,7 @@ export default function NewsletterCard() {
                             type="text"
                             id="email"
                             label="Email"
+                            value={email}
                             size="lg"/>
                     </div>
                     <Button

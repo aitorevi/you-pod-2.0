@@ -1,5 +1,4 @@
 import NewsletterCard from "@/components/NewsletterCard";
-
 export default function Home() {
     return (
         <>
