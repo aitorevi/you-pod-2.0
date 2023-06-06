@@ -64,8 +64,9 @@ export default function NewsletterCard() {
                     <div
                         className="flex flex-col mb-2">
                         <Input
+                            required={true}
+                            type={"email"}
                             onChange={(e) => setEmail(e.target.value)}
-                            type="text"
                             id="email"
                             label="Email"
                             value={email}
