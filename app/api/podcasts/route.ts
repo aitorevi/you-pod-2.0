@@ -2,10 +2,11 @@ import { db } from "@/lib/firebase";
 import {
     addDoc,
     collection,
-    getDocs,
+    getDocs, orderBy,
     query,
     where,
 } from "firebase/firestore/lite";
+import moment from "moment";
 
 interface RequestBody {
     title: string;
@@ -26,16 +27,19 @@ export async function POST(request: Request) {
         };
         return new Response(JSON.stringify(body), { status: 409 });
     }
-
+    const currentDate = new Date();
+    const currentDateIso8601 = moment(currentDate).toISOString();
     await addDoc(collection(db, "podcasts"), {
         title: title,
         description: description,
         url: url,
+        createAt: currentDateIso8601,
     });
     const body = {
         title: title,
         description: description,
         url: url,
+        createAt: currentDateIso8601,
     };
     return new Response(JSON.stringify(body));
 }
@@ -43,9 +47,7 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
     // TODO: To be implemented
-    const podcastsQuery = query(
-        collection(db, "podcasts")
-    );
+    const podcastsQuery = query(collection(db, "podcasts"), orderBy("createAt", "desc"));
     const podcastsDocs = await getDocs(podcastsQuery);
     const podcasts = podcastsDocs.docs.map((doc) => {
         return {
