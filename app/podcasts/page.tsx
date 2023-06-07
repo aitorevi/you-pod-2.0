@@ -20,7 +20,7 @@ const PodcastsPage = () => {
         setPodcasts(data.podcasts);
     };
     return (
-        <div className="container min-h-screen mx-auto max-w-screen-xl my-3 py-2">
+        <div className="container min-h-screen mx-auto max-w-screen-xl md:my-3 py-2">
                 {podcasts.map((podcast) => (
                     <Card key={podcast.id} className="md:flex-row flex-col  max-w-[80rem] my-4">
                         <CardHeader shadow={false} floated={false} className="md:w-1.5/5 flex-shrink-0 md:shrink-0 md:m-0 md:rounded-r-none">
