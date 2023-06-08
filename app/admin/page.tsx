@@ -171,9 +171,9 @@ const AdminPage = () => {
                         key={podcast.id}
                         className="font-semibold text-blue-gray-900 my-1 bg-gray-100 rounded-md"
                     >
-                        <div style={{display: "grid", gridTemplateColumns: "10fr 1fr 1fr", gridTemplateRows: "1fr"}}>
-                            <div className="ml-5 my-auto">{podcast.title}</div>
-                            <div className="flex my-1 justify-end">
+                        <div  className="grid grid-cols-1 md:grid-cols-2">
+                            <div className="ml-5 my-auto text-center md:text-left">{podcast.title}</div>
+                            <div className="flex my-1 justify-center md:justify-end">
                                 <PodcastModal
                                     btnTitle="Edit"
                                     title="Edit Podcast"
