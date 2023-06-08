@@ -58,7 +58,6 @@ const AdminPage = () => {
             if (response.ok) {
                 fetchPodcasts();
                 resetStateOfInputs();
-                //router.push("/admin");
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
@@ -132,7 +131,11 @@ const AdminPage = () => {
                 <h1 className="text-4xl font-bold text-center text-blue-gray-900">
                     Administration panel
                 </h1>
-                <PodcastModal btnTitle="New Podcast" title="Create Podcast" handleSubmit={handleSubmit}>
+                <PodcastModal
+                    btnTitle="New Podcast"
+                    btnColor="green"
+                    title="Create Podcast"
+                    handleSubmit={handleSubmit}>
                     <Input
                         id="title"
                         type="text"
@@ -176,6 +179,7 @@ const AdminPage = () => {
                             <div className="flex my-1 justify-center md:justify-end">
                                 <PodcastModal
                                     btnTitle="Edit"
+                                    btnColor="orange"
                                     title="Edit Podcast"
                                     handleSubmit={(e:any) => {handleUpdate(e, podcast.id)}}
                                     handleOpenUpdate={() => handleOpenUpdate(podcast.id)}>

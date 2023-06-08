@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import React, {useState} from "react";
 
-export const PodcastModal = ({ btnTitle, title, handleSubmit, children, handleOpenUpdate }: any) => {
+export const PodcastModal = ({ btnTitle, btnColor, title, handleSubmit, children, handleOpenUpdate }: any) => {
     const [open, setOpen] = useState<boolean>(false);
 
     const handleOpen = () => {
@@ -26,7 +26,9 @@ export const PodcastModal = ({ btnTitle, title, handleSubmit, children, handleOp
 
     return (
         <>
-            <Button onClick={handleOpen} className="bg-[#55b048]">
+            <Button
+                onClick={handleOpen}
+                color={btnColor}>
                 {btnTitle}
             </Button>
             <Dialog
@@ -49,7 +51,10 @@ export const PodcastModal = ({ btnTitle, title, handleSubmit, children, handleOp
                         {children}
                     </CardBody>
                     <CardFooter className="pt-0 justify-center ">
-                        <Button variant="gradient" onClick={(e) => handleSubmitInModal(e)} fullWidth>
+                        <Button
+                            variant="gradient"
+                            onClick={(e) => handleSubmitInModal(e)}
+                            fullWidth>
                             {title}
                         </Button>
                     </CardFooter>
