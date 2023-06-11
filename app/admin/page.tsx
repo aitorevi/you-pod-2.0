@@ -7,6 +7,8 @@ import {
     Typography,
 } from "@material-tailwind/react";
 import {PodcastModal} from "@/components/PodcastModal";
+import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
+import {storage} from "@/lib/firebase";
 
 interface Podcast {
     id: string;
@@ -20,6 +22,8 @@ const AdminPage = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [file, setFile] = useState<File | null>(null);
+    const [uploading, setUploading] = useState(false);
 
     const [open, setOpen] = useState<boolean>(false);
     const [podcasts, setPodcasts] = useState<Podcast[]>([]);
@@ -40,13 +44,16 @@ const AdminPage = () => {
     }
 
     const handleSubmit = async (e: any) => {
+
         e.preventDefault();
+
         const podcastData = {
             title,
             description,
             url,
         };
         handleOpen();
+        // handleFile();
         try {
             const response = await fetch("/api/podcasts", {
                 method: "POST",
@@ -55,9 +62,11 @@ const AdminPage = () => {
                 },
                 body: JSON.stringify(podcastData),
             });
+
             if (response.ok) {
                 fetchPodcasts();
                 resetStateOfInputs();
+
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
@@ -124,6 +133,36 @@ const AdminPage = () => {
             setErrorMessage("An error occurred. Please try again."); // Set a generic error message
         }
     };
+    const handleFileChange = (event: any) => {
+        setFile(event.target.files[0]);
+    };
+    const handleFile = () => {
+        if (file) {
+            setUploading(true);
+
+            const metadata = {
+                contentType: 'image/jpeg'
+            };
+
+            const storageRef = ref(storage, `images/${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+
+            uploadTask.on('state_changed', (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            }, (error) => {
+                console.error(error);
+            }, () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setUploading(false);
+                    console.log(downloadURL);
+                    setUrl(downloadURL.valueOf());
+                    console.log(url);
+                    // Guardar la url en la base de datos
+                });
+
+            });
+        }
+    };
 
     return (
         <>
@@ -151,14 +190,23 @@ const AdminPage = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
+                    {/*<Input*/}
+                    {/*    id="url"*/}
+                    {/*    type={url}*/}
+                    {/*    label="Url"*/}
+                    {/*    size="lg"*/}
+                    {/*    value={url}*/}
+                    {/*    onChange={(e) => setUrl(e.target.value)}*/}
+                    {/*/>*/}
                     <Input
-                        id="url"
-                        type={url}
-                        label="Url"
+                        id="mp3"
+                        type="file"
+                        label="Mp3"
                         size="lg"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        onChange={handleFileChange}
+                        className="cursor-pointer"
                     />
+                    <Button onClick={handleFile} disabled={!file || uploading}>Subir archivo</Button>
                 </PodcastModal>
                 {errorMessage && (
                     <Typography
@@ -174,14 +222,16 @@ const AdminPage = () => {
                         key={podcast.id}
                         className="font-semibold text-blue-gray-900 my-1 bg-gray-100 rounded-md"
                     >
-                        <div  className="grid grid-cols-1 md:grid-cols-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2">
                             <div className="ml-5 my-auto text-center md:text-left">{podcast.title}</div>
                             <div className="flex my-1 justify-center md:justify-end">
                                 <PodcastModal
                                     btnTitle="Edit"
                                     btnColor="orange"
                                     title="Edit Podcast"
-                                    handleSubmit={(e:any) => {handleUpdate(e, podcast.id)}}
+                                    handleSubmit={(e: any) => {
+                                        handleUpdate(e, podcast.id)
+                                    }}
                                     handleOpenUpdate={() => handleOpenUpdate(podcast.id)}>
                                     <Input
                                         id="title"

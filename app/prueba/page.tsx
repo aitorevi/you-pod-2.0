@@ -7,7 +7,6 @@ import {Button} from "@material-tailwind/react";
 export default function FileUploader() {
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
-
     const handleFileChange = (event: any) => {
         setFile(event.target.files[0]);
     };
