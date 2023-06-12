@@ -49,14 +49,14 @@ export default function NewsletterCard() {
                     className="w-full h-full object-cover"
                 />
             </CardHeader>
-            <CardBody>
+            <CardBody className="dark:bg-gray-800 dark:rounded-r-lg">
                 <Typography variant="h6" color="blue" className="uppercase mb-4">newsletter</Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
+                <Typography variant="h4" color="blue-gray" className="mb-2 dark:text-gray-500">
                     Both software development and personal development.
                 </Typography>
                 <Typography
                     color="gray"
-                    className="font-normal mb-6">
+                    className="font-normal mb-6 dark:text-white">
                     Want to be notified by email when I publish new blog posts or new podcasts? No advertising, just
                     emails when there are new posts.
                 </Typography>
@@ -64,6 +64,7 @@ export default function NewsletterCard() {
                     <div
                         className="flex flex-col mb-2">
                         <Input
+                            className="dark:text-white"
                             required={true}
                             type={"email"}
                             onChange={(e) => setEmail(e.target.value)}

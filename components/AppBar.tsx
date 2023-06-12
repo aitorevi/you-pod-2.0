@@ -22,7 +22,7 @@ function NavList(props: NavListProps) {
                 color="blue-gray"
                 className="font-normal"
             >
-                <ListItem className="flex items-center gap-2 py-2 pr-4">
+                <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white">
                     <IconMicro/>
                     Podcasts
                 </ListItem>
@@ -35,7 +35,7 @@ function NavList(props: NavListProps) {
                     color="blue-gray"
                     className="font-normal"
                 >
-                    <ListItem className="flex items-center gap-2 py-2 pr-4">
+                    <ListItem className="flex items-center gap-2 py-2 pr-4 dark:text-white">
                         <UserCircleIcon className="h-[18px] w-[18px]"/>
                         Admin Panel
                     </ListItem>
@@ -59,7 +59,7 @@ export default function AppBar() {
     }, []);
 
     return (
-        <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
+        <Navbar className="mx-auto max-w-screen-xl px-4 py-2 dark:bg-gray-900 dark:text-white">
             <div className="flex items-center justify-between text-blue-gray-900">
                 <div className="flex items-center">
                     <Link href="/">
@@ -87,7 +87,7 @@ export default function AppBar() {
                 </IconButton>
             </div>
             <Collapse open={openNav}>
-                <NavList isAdmin={isAdmin}/>
+                <NavList isAdmin={isAdmin} />
                 <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
                     <SigninButton/>
                     <SignupButton/>

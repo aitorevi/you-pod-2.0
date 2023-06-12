@@ -36,7 +36,7 @@ export default function Home() {
                         alt="red"
                     />
                 </div>
-                <div className="flex items-center justify-center py-56 bg-gray-50">
+                <div className="flex items-center justify-center py-56 bg-gray-50 dark:bg-gray-900">
                     <NewsletterCard/>
                 </div>
             </div>

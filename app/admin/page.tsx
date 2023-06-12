@@ -185,7 +185,7 @@ const AdminPage = () => {
     return (
         <>
             <div className="container h-screen mx-auto max-w-screen-xl my-3 rounded-lg shadow-md px-4 py-2">
-                <h1 className="text-4xl font-bold text-center text-blue-gray-900">
+                <h1 className="text-4xl font-bold text-center text-blue-gray-900 dark:text-white">
                     Administration panel
                 </h1>
                 <PodcastModal
@@ -194,6 +194,7 @@ const AdminPage = () => {
                     title="Create Podcast"
                     handleSubmit={handleSubmit}>
                     <Input
+                        className="dark:text-white"
                         id="title"
                         type="text"
                         label="Title"
@@ -202,6 +203,7 @@ const AdminPage = () => {
                         onChange={(e) => setTitle(e.target.value)}
                     />
                     <Textarea
+                        className="dark:text-white"
                         id="description"
                         label="Description"
                         size="lg"
@@ -217,12 +219,12 @@ const AdminPage = () => {
                     {/*    onChange={(e) => setUrl(e.target.value)}*/}
                     {/*/>*/}
                     <Input
+                        className="cursor-pointer dark:text-white"
                         id="mp3"
                         type="file"
                         label="Mp3"
                         size="lg"
                         onChange={handleFileChange}
-                        className="cursor-pointer"
                     />
                     <Button onClick={handleFile} disabled={!file || uploading}>Subir archivo</Button>
                 </PodcastModal>
@@ -238,8 +240,7 @@ const AdminPage = () => {
                 {podcasts.length !== 0 ? podcasts.map((podcast) => (
                     <div
                         key={podcast.id}
-                        className="font-semibold text-blue-gray-900 my-1 bg-gray-100 rounded-md"
-                    >
+                        className="font-semibold text-blue-gray-900 my-1 bg-gray-100 rounded-md dark:bg-gray-800 dark:text-white">
                         <div className="grid grid-cols-1 md:grid-cols-2">
                             <div className="ml-5 my-auto text-center md:text-left">{podcast.title}</div>
                             <div className="flex my-1 justify-center md:justify-end">

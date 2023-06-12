@@ -38,7 +38,7 @@ export const PodcastModal = ({ btnTitle, btnColor, title, handleSubmit, children
                 handler={handleOpen}
                 className="bg-transparent shadow-none"
             >
-                <Card className="mx-auto w-full max-w-[24rem]">
+                <Card className="mx-auto w-full max-w-[24rem] dark:bg-gray-900">
                     <CardHeader
                         variant="gradient"
                         color="blue"

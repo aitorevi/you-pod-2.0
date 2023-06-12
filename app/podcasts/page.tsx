@@ -23,16 +23,16 @@ const PodcastsPage = () => {
         <div className="container min-h-screen mx-auto max-w-screen-xl md:my-3 py-2">
                 {podcasts.map((podcast) => (
                     <Card key={podcast.id} className="md:flex-row flex-col  max-w-[80rem] my-4">
-                        <CardHeader shadow={false} floated={false} className="md:w-1.5/5 flex-shrink-0 md:shrink-0 md:m-0 md:rounded-r-none">
+                        <CardHeader shadow={false} floated={false} className="md:w-1.5/5 flex-shrink-0 md:shrink-0 md:m-0 md:rounded-r-none dark:bg-gray-800 dark:rounded-l-lg">
                             <img
                                 src="/defaultImage.svg"
                                 alt="image"
                                 className="flex-row mx-auto h-[16rem] w-[16rem] md:w-[24rem] md:h-[24rem] md:p-3 md:m-0"
                             />
                         </CardHeader>
-                        <CardBody>
+                        <CardBody className="dark:bg-gray-800 dark:rounded-r-lg">
                             <Typography variant="h6" color="blue" className="uppercase mb-4">{podcast.title}</Typography>
-                            <Typography color="blue-gray" className="mb-2">
+                            <Typography color="blue-gray" className="mb-2 dark:text-white">
                                 {podcast.description}
                             </Typography>
                             <audio className="mt-0 md:mt-3 mx-auto" controls src={podcast.url} />
