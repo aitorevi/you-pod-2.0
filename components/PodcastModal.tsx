@@ -21,6 +21,7 @@ export const PodcastModal = ({ btnTitle, btnColor, title, handleSubmit, children
 
     const handleSubmitInModal = (e: any) => {
         handleSubmit(e)
+        // : TODO: fix this, close modal after submit when validate is true
         setOpen(false)
     }
 

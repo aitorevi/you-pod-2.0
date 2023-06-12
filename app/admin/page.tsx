@@ -9,6 +9,7 @@ import {
 import {PodcastModal} from "@/components/PodcastModal";
 import {getDownloadURL, ref, uploadBytesResumable} from "@firebase/storage";
 import {storage} from "@/lib/firebase";
+import {z, ZodError} from "zod";
 
 interface Podcast {
     id: string;
@@ -42,6 +43,11 @@ const AdminPage = () => {
         setDescription("");
         setUrl("");
     }
+    const validateSchema = z.object({
+        title: z.string().min(3, "Esto es un error personalizado").max(100),
+        description: z.string().min(3).max(100),
+        url: z.string().min(3).max(100),
+    });
 
     const handleSubmit = async (e: any) => {
 
@@ -52,9 +58,11 @@ const AdminPage = () => {
             description,
             url,
         };
-        handleOpen();
+
         // handleFile();
         try {
+            const validatedForm = validateSchema.parse(podcastData);
+            // console.log(validatedForm);
             const response = await fetch("/api/podcasts", {
                 method: "POST",
                 headers: {
@@ -64,16 +72,21 @@ const AdminPage = () => {
             });
 
             if (response.ok) {
+                ///handleOpen();
                 fetchPodcasts();
                 resetStateOfInputs();
+                setErrorMessage("")
 
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
             }
         } catch (error) {
-            console.error("An error occurred:", error);
-            setErrorMessage("An error occurred. Please try again."); // Set a generic error message
+            if(error instanceof ZodError) {
+                const response = (error.issues.map(issue => ({message: issue.message})).map(issue => issue.message).join(", "));
+                setErrorMessage(response);
+                // console.log(response);
+            }
         }
     };
 
@@ -135,13 +148,18 @@ const AdminPage = () => {
     };
     const handleFileChange = (event: any) => {
         setFile(event.target.files[0]);
+        console.log(event.target.files[0].type);
     };
     const handleFile = () => {
         if (file) {
             setUploading(true);
-
+            // :TODO: Validar que el archivo sea de tipo audio/mpeg
+            if (file.type !== 'audio/mpeg') {
+                console.error('File type must be "audio/mpeg"');
+                return;
+            }
             const metadata = {
-                contentType: 'image/jpeg'
+                contentType: 'audio/mpeg'
             };
 
             const storageRef = ref(storage, `images/${file.name}`);
