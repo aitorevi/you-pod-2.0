@@ -43,12 +43,12 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex justify-center content-center w-full mt-6">
+    <div className="flex justify-center content-center w-full mt-6 h-screen">
       <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color="blue-gray">
+        <Typography variant="h4" color="blue-gray" className="dark:text-white mt-20">
           Sign Up
         </Typography>
-        <Typography color="gray" className="mt-1 font-normal">
+        <Typography color="gray" className="mt-1 font-normal dark:text-gray-500">
           Enter your details to register.
         </Typography>
         <form
