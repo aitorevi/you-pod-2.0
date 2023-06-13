@@ -7,6 +7,7 @@ import SignupButton from "./SignupButton";
 import {useSession} from "next-auth/react";
 import {IconMicro} from "@/components/IconMicro";
 import Link from "next/link";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 interface NavListProps {
     isAdmin: boolean;
@@ -70,6 +71,7 @@ export default function AppBar() {
                     </div>
                 </div>
                 <div className="hidden gap-2 lg:flex">
+                    <ThemeSwitcher/>
                     <SigninButton/>
                     <SignupButton/>
                 </div>

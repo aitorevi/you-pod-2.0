@@ -15,15 +15,13 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
 
         <html lang="en">
         <body className="bg-white dark:bg-gray-900">
-
         <Providers>
-            <AppBar/>
             <ThemeProvider attribute="class">
+                <AppBar/>
                 {children}
             </ThemeProvider>
             <Footer/>
         </Providers>
-
         </body>
         </html>
 
