@@ -52,7 +52,7 @@ const handler = NextAuth({
   },
   theme: {
     colorScheme: "auto", // "auto" | "dark" | "light"
-    logo: "/you-pod_sm.svg", // Absolute URL to image
+    logo: "/you-pod_sm.png", // Absolute URL to image
   },
 });
 
