@@ -7,12 +7,17 @@ import {
     Button, Input,
 } from "@material-tailwind/react";
 import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
+import {z, ZodError} from "zod";
 import {useState} from "react";
 
 export default function NewsletterCard() {
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("Email");
 
+    const emailSchema = z.object({
+        email: z.string().email(),
+    })
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -20,6 +25,7 @@ export default function NewsletterCard() {
             email,
         };
         try {
+            emailSchema.parse(newsletterData);
             const response = await fetch("/api/newsletter", {
                 method: "POST",
                 headers: {
@@ -30,14 +36,23 @@ export default function NewsletterCard() {
             if (response.ok) {
                 alert("You have been registered in the newsletter");
                 setEmail("");
+                setErrorMessage("")
+                setSuccessMessage("Email")
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
                 alert("Error, you are already subscribed to the newsletter.");
             }
         } catch (error) {
-            console.error("An error occurred:", error);
-            setErrorMessage("An error occurred. Please try again."); // Set a generic error message
+            if (error instanceof ZodError) {
+                const response = (error.issues.map(issue => ({message: issue.message})).map(issue => issue.message).join(", "));
+                setErrorMessage(response + ", please try again.");
+                setSuccessMessage(errorMessage)
+                console.log(errorMessage)
+            }else{
+                console.error("An error occurred:", error);
+                setErrorMessage("An error occurred. Please try again.");
+            }
         }
     }
     return (
@@ -64,12 +79,13 @@ export default function NewsletterCard() {
                     <div
                         className="flex flex-col mb-2">
                         <Input
+                            {...(errorMessage ? {color: "red"} : {color: "blue"})}
                             className="dark:text-white"
                             required={true}
                             type={"email"}
                             onChange={(e) => setEmail(e.target.value)}
                             id="email"
-                            label="Email"
+                            label={successMessage ? successMessage : "Email"}
                             value={email}
                             size="lg"/>
                     </div>
