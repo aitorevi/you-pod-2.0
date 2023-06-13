@@ -64,7 +64,7 @@ export default function AppBar() {
             <div className="flex items-center justify-between text-blue-gray-900">
                 <div className="flex items-center">
                     <Link href="/">
-                        <img src={'you-pod_sm.svg'} alt={''} className="h-auto w-100"/>
+                        <img src={'you-pod_sm.png'} alt={''} className="h-auto w-100"/>
                     </Link>
                     <div className="hidden lg:block ml-5">
                         <NavList isAdmin={isAdmin}/>
