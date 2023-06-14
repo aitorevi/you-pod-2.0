@@ -99,7 +99,6 @@ export default function NewsletterCard() {
                             className="w-4 h-4"/>
                     </Button>
                 </div>
-
             </CardBody>
         </Card>
     );

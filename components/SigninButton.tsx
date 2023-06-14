@@ -15,7 +15,7 @@ const SigninButton = () => {
           color="pink"
           fullWidth
         >
-          Sign Out
+          Sign_Out
         </Button>
     );
   }
@@ -28,7 +28,7 @@ const SigninButton = () => {
       fullWidth
       style={{ boxShadow: "0 1px 2px rgba(0, 0, 0, 0.5)" }}
     >
-      Sign In
+      Sign_In
     </Button>
   );
 };

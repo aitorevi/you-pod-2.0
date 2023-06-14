@@ -46,20 +46,20 @@ const AdminPage = () => {
     const validateSchema = z.object({
         title: z.string().min(3, "Esto es un error personalizado").max(100),
         description: z.string().min(3).max(100),
-        url: z.string().min(3).max(100),
+        url: z.string().min(3).max(1000),
     });
 
-    const handleSubmit = async (e: any) => {
+    const handleCreatePodcast = async (url: string) => {
 
-        e.preventDefault();
 
+        // const prueba = await handleFile();
         const podcastData = {
             title,
             description,
             url,
         };
 
-        // handleFile();
+
         try {
             const validatedForm = validateSchema.parse(podcastData);
             // console.log(validatedForm);
@@ -150,7 +150,8 @@ const AdminPage = () => {
         setFile(event.target.files[0]);
         console.log(event.target.files[0].type);
     };
-    const handleFile = () => {
+    const handleFile = async (e: any) => {
+        e.preventDefault();
         if (file) {
             setUploading(true);
             // :TODO: Validar que el archivo sea de tipo audio/mpeg
@@ -164,21 +165,20 @@ const AdminPage = () => {
 
             const storageRef = ref(storage, `images/${file.name}`);
             const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-
+            let fileUrl = ""
             uploadTask.on('state_changed', (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             }, (error) => {
                 console.error(error);
-            }, () => {
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    setUploading(false);
-                    console.log(downloadURL);
-                    setUrl(downloadURL.valueOf());
-                    console.log(url);
-                    // Guardar la url en la base de datos
-                });
-
+            }, async () => {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+                setUploading(false);
+                console.log(downloadURL);
+                fileUrl = downloadURL.valueOf();
+                await handleCreatePodcast(fileUrl);
             });
+
+
         }
     };
 
@@ -192,7 +192,7 @@ const AdminPage = () => {
                     btnTitle="New Podcast"
                     btnColor="green"
                     title="Create Podcast"
-                    handleSubmit={handleSubmit}>
+                    handleSubmit={handleFile}>
                     <Input
                         className="dark:text-white"
                         id="title"
@@ -226,7 +226,7 @@ const AdminPage = () => {
                         size="lg"
                         onChange={handleFileChange}
                     />
-                    <Button onClick={handleFile} disabled={!file || uploading}>Subir archivo</Button>
+                    {/*<Button onClick={handleFile} disabled={!file || uploading}>Subir archivo</Button>*/}
                 </PodcastModal>
                 {errorMessage && (
                     <Typography
