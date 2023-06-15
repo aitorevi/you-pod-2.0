@@ -40,8 +40,8 @@ const AdminPage = () => {
         setUrl("");
     }
     const validateSchema = z.object({
-        title: z.string().min(3, "Title is required").max(100, "Title too long"),
-        description: z.string().min(3, "Description is required").max(100, "Description too long"),
+        title: z.string().min(1, "Title is required").max(100, "Title too long"),
+        description: z.string().min(1, "Description is required").max(100, "Description too long"),
         url: z.string().min(8, "File is required and type 'audio/mpeg").max(1000, "Url too long"),
     });
 
@@ -74,6 +74,9 @@ const AdminPage = () => {
             if(error instanceof ZodError) {
                 const response = (error.issues.map(issue => ({message: issue.message})).map(issue => issue.message).join(", "));
                 setErrorMessage(response);
+            } else {
+                console.error("An error occurred:", error);
+                setErrorMessage("An error occurred. Please try again.");
             }
         }
     };
@@ -86,7 +89,6 @@ const AdminPage = () => {
                     "Content-Type": "application/json",
                 },
             });
-
             if (response.ok) {
                 setPodcasts(prevPodcasts => prevPodcasts.filter(podcast => podcast.id !== podcastId));
             } else {
@@ -114,6 +116,7 @@ const AdminPage = () => {
             url: url,
         };
         try {
+            validateSchema.parse(podcastData);
             const response = await fetch(`/api/podcasts/${podcastId}`, {
                 method: "PUT",
                 headers: {
@@ -124,13 +127,19 @@ const AdminPage = () => {
             if (response.ok) {
                 fetchPodcasts();
                 resetStateOfInputs();
+                setErrorMessage("")
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
             }
         } catch (error) {
-            console.error("An error occurred:", error);
-            setErrorMessage("An error occurred. Please try again."); // Set a generic error message
+            if(error instanceof ZodError) {
+                const response = (error.issues.map(issue => ({message: issue.message})).map(issue => issue.message).join(", "));
+                setErrorMessage(response);
+            } else {
+                console.error("An error occurred:", error);
+                setErrorMessage("An error occurred. Please try again.");
+            }
         }
     };
     const handleFileChange = (event: any) => {
