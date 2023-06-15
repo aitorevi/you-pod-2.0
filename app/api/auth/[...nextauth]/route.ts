@@ -11,12 +11,12 @@ const handler = NextAuth({
         username: {
           label: "Username",
           type: "text",
-          placeholder: "a wonderful username",
+          placeholder: "username",
         },
         password: {
           label: "Password",
           type: "password" ,
-          placeholder: "a difficult password",
+          placeholder: "password",
         },
       },
       async authorize(credentials, req) {
