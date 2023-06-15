@@ -36,7 +36,6 @@ export default function NewsletterCard() {
                 // alert("You have been registered in the newsletter");
                 setEmail("");
                 setErrorMessage("")
-                setSuccessMessage("Email")
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
@@ -46,7 +45,6 @@ export default function NewsletterCard() {
             if (error instanceof ZodError) {
                 const response = (error.issues.map(issue => ({message: issue.message})).map(issue => issue.message).join(", "));
                 setErrorMessage(response + ", please try again.");
-                setSuccessMessage(errorMessage)
                 console.log(errorMessage)
             }else{
                 console.error("An error occurred:", error);
