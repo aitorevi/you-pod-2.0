@@ -10,14 +10,15 @@ import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import {z, ZodError} from "zod";
 import {useState} from "react";
 
+
+
 export default function NewsletterCard() {
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-
+    const [alert, setAlert] = useState(false);
     const emailSchema = z.object({
         email: z.string().email(),
     })
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         const newsletterData = {
@@ -33,9 +34,12 @@ export default function NewsletterCard() {
                 body: JSON.stringify(newsletterData),
             });
             if (response.ok) {
-                // alert("You have been registered in the newsletter");
                 setEmail("");
                 setErrorMessage("")
+                setAlert(true);
+                setTimeout(() => {
+                    setAlert(false);
+                }, 4000);
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
@@ -53,7 +57,7 @@ export default function NewsletterCard() {
         }
     }
     return (
-        <Card className="flex-row w-full max-w-[48rem] shadow-xl mx-5">
+        <Card className="flex-row w-full max-w-[52rem] min-h-[24rem] shadow-xl mx-5">
             <CardHeader shadow={false} floated={false} className="w-2/5 shrink-0 m-0 rounded-r-none">
                 <img
                     src="/newsletter.png"
@@ -76,7 +80,7 @@ export default function NewsletterCard() {
                     <div
                         className="flex flex-col mb-2">
                         <Input
-                            {...(errorMessage ? {color: "red"} : {color: "blue"})}
+                            {...(errorMessage ? {error: true} : {error: false})}
                             className="dark:text-white"
                             required={true}
                             type={"email"}
@@ -95,6 +99,25 @@ export default function NewsletterCard() {
                             strokeWidth={2}
                             className="w-4 h-4"/>
                     </Button>
+                    {alert && (
+                        <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6 text-green-500"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"/>
+                                </svg>
+                                <p className="text-green-500">You have been registered in the newsletter</p>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </CardBody>
         </Card>
