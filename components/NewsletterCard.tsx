@@ -13,7 +13,6 @@ import {useState} from "react";
 export default function NewsletterCard() {
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState("Email");
 
     const emailSchema = z.object({
         email: z.string().email(),
@@ -34,14 +33,14 @@ export default function NewsletterCard() {
                 body: JSON.stringify(newsletterData),
             });
             if (response.ok) {
-                alert("You have been registered in the newsletter");
+                // alert("You have been registered in the newsletter");
                 setEmail("");
                 setErrorMessage("")
                 setSuccessMessage("Email")
             } else {
                 const data = await response.json();
                 setErrorMessage(data.error || "An error occurred.");
-                alert("Error, you are already subscribed to the newsletter.");
+                // alert("Error, you are already subscribed to the newsletter.");
             }
         } catch (error) {
             if (error instanceof ZodError) {
@@ -85,7 +84,7 @@ export default function NewsletterCard() {
                             type={"email"}
                             onChange={(e) => setEmail(e.target.value)}
                             id="email"
-                            label={successMessage ? successMessage : "Email"}
+                            label={errorMessage ? errorMessage : "Email"}
                             value={email}
                             size="lg"/>
                     </div>
