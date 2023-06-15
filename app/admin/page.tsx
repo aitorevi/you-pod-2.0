@@ -235,6 +235,7 @@ const AdminPage = () => {
                                     }}
                                     handleOpenUpdate={() => handleOpenUpdate(podcast.id)}>
                                     <Input
+                                        className="dark:text-white"
                                         id="title"
                                         type="text"
                                         label="Title"
@@ -243,19 +244,12 @@ const AdminPage = () => {
                                         onChange={(e) => setTitle(e.target.value)}
                                     />
                                     <Textarea
+                                        className="dark:text-white"
                                         id="description"
                                         label="Description"
                                         size="lg"
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
-                                    />
-                                    <Input
-                                        id="url"
-                                        type="url"
-                                        label="Url"
-                                        size="lg"
-                                        value={url}
-                                        onChange={(e) => setUrl(e.target.value)}
                                     />
                                 </PodcastModal>
                                 <Button
