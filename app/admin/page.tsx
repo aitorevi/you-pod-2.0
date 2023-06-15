@@ -23,11 +23,7 @@ const AdminPage = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    let arrayErrors: string[] = [];
     const [file, setFile] = useState<File | null>(null);
-    const [uploading, setUploading] = useState(false);
-
-    const [open, setOpen] = useState<boolean>(false);
     const [podcasts, setPodcasts] = useState<Podcast[]>([]);
     useEffect(() => {
         fetchPodcasts();
@@ -37,7 +33,6 @@ const AdminPage = () => {
         const data = await response.json();
         setPodcasts(data.podcasts);
     };
-    const handleOpen = () => setOpen((cur) => !cur);
 
     function resetStateOfInputs() {
         setTitle("");
@@ -45,8 +40,8 @@ const AdminPage = () => {
         setUrl("");
     }
     const validateSchema = z.object({
-        title: z.string().min(1, "Title is required").max(100, "Title too long"),
-        description: z.string().min(1, "Description is required").max(100, "Description too long"),
+        title: z.string().min(3, "Title is required").max(100, "Title too long"),
+        description: z.string().min(3, "Description is required").max(100, "Description too long"),
         url: z.string().min(8, "File is required and type 'audio/mpeg").max(1000, "Url too long"),
     });
 
@@ -57,8 +52,7 @@ const AdminPage = () => {
             url,
         };
         try {
-            const result = validateSchema.parse(podcastData);
-            console.log(result);
+            validateSchema.parse(podcastData);
             const response = await fetch("/api/podcasts", {
                 method: "POST",
                 headers: {
@@ -100,8 +94,7 @@ const AdminPage = () => {
                 setErrorMessage(data.error || "An error occurred.");
             }
         } catch (error) {
-            console.error("An error occurred:", error);
-            setErrorMessage("An error occurred. Please try again."); // Set a generic error message
+            setErrorMessage("An error occurred. Please try again.");
         }
     }
     const handleOpenUpdate = async (podcastId: string) => {
@@ -142,24 +135,18 @@ const AdminPage = () => {
     };
     const handleFileChange = (event: any) => {
         setFile(event.target.files[0]);
-        console.log(event.target.files[0].type);
     };
     const handleFile = async (e: any) => {
         e.preventDefault();
         if (file) {
-            setUploading(true);
             if (file.type !== 'audio/mpeg') {
-                setErrorMessage("File type must be 'audio/mpeg'")
-                arrayErrors.push("File type must be 'audio/mpeg'")
-                console.log(arrayErrors)
                 await handleCreatePodcast("")
                 return;
             }else{
                 const metadata = {
                     contentType: 'audio/mpeg'
                 };
-
-                const storageRef = ref(storage, `images/${file.name}`);
+                const storageRef = ref(storage, `podcasts/${file.name}`);
                 const uploadTask = uploadBytesResumable(storageRef, file, metadata);
                 let fileUrl = ""
                 uploadTask.on('state_changed', (snapshot) => {
@@ -168,14 +155,12 @@ const AdminPage = () => {
                     console.error(error);
                 }, async () => {
                     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
-                    setUploading(false);
                     fileUrl = downloadURL.valueOf();
                     await handleCreatePodcast(fileUrl);
                 });
             }
-
-
-
+        } else {
+            await handleCreatePodcast("")
         }
     };
 
@@ -265,7 +250,7 @@ const AdminPage = () => {
                                     />
                                 </PodcastModal>
                                 <Button
-                                    onClick={(event) => {
+                                    onClick={() => {
                                         handleDelete(podcast.id)
                                     }}
                                     className="mx-3 bg-red-700">
