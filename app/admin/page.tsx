@@ -23,6 +23,7 @@ const AdminPage = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    let arrayErrors: string[] = [];
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
 
@@ -44,25 +45,20 @@ const AdminPage = () => {
         setUrl("");
     }
     const validateSchema = z.object({
-        title: z.string().min(3, "Esto es un error personalizado").max(100),
-        description: z.string().min(3).max(100),
-        url: z.string().min(3).max(1000),
+        title: z.string().min(1, "Title is required").max(100, "Title too long"),
+        description: z.string().min(1, "Description is required").max(100, "Description too long"),
+        url: z.string().min(8, "File is required and type 'audio/mpeg").max(1000, "Url too long"),
     });
 
     const handleCreatePodcast = async (url: string) => {
-
-
-        // const prueba = await handleFile();
         const podcastData = {
             title,
             description,
             url,
         };
-
-
         try {
-            const validatedForm = validateSchema.parse(podcastData);
-            // console.log(validatedForm);
+            const result = validateSchema.parse(podcastData);
+            console.log(result);
             const response = await fetch("/api/podcasts", {
                 method: "POST",
                 headers: {
@@ -72,7 +68,6 @@ const AdminPage = () => {
             });
 
             if (response.ok) {
-                ///handleOpen();
                 fetchPodcasts();
                 resetStateOfInputs();
                 setErrorMessage("")
@@ -85,7 +80,6 @@ const AdminPage = () => {
             if(error instanceof ZodError) {
                 const response = (error.issues.map(issue => ({message: issue.message})).map(issue => issue.message).join(", "));
                 setErrorMessage(response);
-                // console.log(response);
             }
         }
     };
@@ -154,29 +148,32 @@ const AdminPage = () => {
         e.preventDefault();
         if (file) {
             setUploading(true);
-            // :TODO: Validar que el archivo sea de tipo audio/mpeg
             if (file.type !== 'audio/mpeg') {
-                console.error('File type must be "audio/mpeg"');
+                setErrorMessage("File type must be 'audio/mpeg'")
+                arrayErrors.push("File type must be 'audio/mpeg'")
+                console.log(arrayErrors)
+                await handleCreatePodcast("")
                 return;
-            }
-            const metadata = {
-                contentType: 'audio/mpeg'
-            };
+            }else{
+                const metadata = {
+                    contentType: 'audio/mpeg'
+                };
 
-            const storageRef = ref(storage, `images/${file.name}`);
-            const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-            let fileUrl = ""
-            uploadTask.on('state_changed', (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            }, (error) => {
-                console.error(error);
-            }, async () => {
-                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
-                setUploading(false);
-                console.log(downloadURL);
-                fileUrl = downloadURL.valueOf();
-                await handleCreatePodcast(fileUrl);
-            });
+                const storageRef = ref(storage, `images/${file.name}`);
+                const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+                let fileUrl = ""
+                uploadTask.on('state_changed', (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                }, (error) => {
+                    console.error(error);
+                }, async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+                    setUploading(false);
+                    fileUrl = downloadURL.valueOf();
+                    await handleCreatePodcast(fileUrl);
+                });
+            }
+
 
 
         }
@@ -210,14 +207,6 @@ const AdminPage = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                    {/*<Input*/}
-                    {/*    id="url"*/}
-                    {/*    type={url}*/}
-                    {/*    label="Url"*/}
-                    {/*    size="lg"*/}
-                    {/*    value={url}*/}
-                    {/*    onChange={(e) => setUrl(e.target.value)}*/}
-                    {/*/>*/}
                     <Input
                         className="cursor-pointer dark:text-white"
                         id="mp3"
@@ -226,7 +215,6 @@ const AdminPage = () => {
                         size="lg"
                         onChange={handleFileChange}
                     />
-                    {/*<Button onClick={handleFile} disabled={!file || uploading}>Subir archivo</Button>*/}
                 </PodcastModal>
                 {errorMessage && (
                     <Typography
@@ -234,7 +222,7 @@ const AdminPage = () => {
                         color="red"
                         className="mt-4 text-center font-normal"
                     >
-                        {errorMessage}
+                        `{errorMessage}`
                     </Typography>
                 )}
                 {podcasts.length !== 0 ? podcasts.map((podcast) => (
