@@ -41,7 +41,7 @@ const AdminPage = () => {
     }
     const validateSchema = z.object({
         title: z.string().min(1, "Title is required").max(100, "Title too long"),
-        description: z.string().min(1, "Description is required").max(100, "Description too long"),
+        description: z.string().min(1, "Description is required").max(1000, "Description too long"),
         url: z.string().min(8, "File is required and type 'audio/mpeg").max(1000, "Url too long"),
     });
 
