@@ -11,26 +11,6 @@ export default function Footer() {
             </Typography>
             <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
                 <li>
-                    <Typography
-                        as="a"
-                        href="#"
-                        color="blue-gray"
-                        className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500 dark:text-white dark:hover:text-blue-500 dark:focus:text-blue-500"
-                    >
-                        About Us
-                    </Typography>
-                </li>
-                <li>
-                    <Typography
-                        as="a"
-                        href="#"
-                        color="blue-gray"
-                        className="font-normal transition-colors hover:text-blue-500 focus:text-blue-500 dark:text-white dark:hover:text-blue-500 dark:focus:text-blue-500"
-                    >
-                        Contact Us
-                    </Typography>
-                </li>
-                <li>
                     <a href='https://linkedin.com/in/aitor-reviriego-amor'>
                         <button aria-label='LinkedIn'>
                             <FaLinkedinIn

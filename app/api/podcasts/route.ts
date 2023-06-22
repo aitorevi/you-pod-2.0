@@ -46,7 +46,6 @@ export async function POST(request: Request) {
 
 
 export async function GET(request: Request) {
-    // TODO: To be implemented
     const podcastsQuery = query(collection(db, "podcasts"), orderBy("createAt", "desc"));
     const podcastsDocs = await getDocs(podcastsQuery);
     const podcasts = podcastsDocs.docs.map((doc) => {
