@@ -58,6 +58,17 @@ description: "a_description"
 url: "a_url"
 ```
 
+## Cypress
+
+This project uses cypress to do the e2e tests.
+
+To launch the tests:
+
+```
+npm run start
+npm run cy:open
+```
+
 ## Learn More 📖
 
 - [Material Tailwind UI](https://material-tailwind.com/) 🎨
