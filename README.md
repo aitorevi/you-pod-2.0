@@ -58,7 +58,7 @@ description: "a_description"
 url: "a_url"
 ```
 
-## Cypress
+## Cypress 🧪
 
 This project uses cypress to do the e2e tests.
 
