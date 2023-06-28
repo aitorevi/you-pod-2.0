@@ -101,9 +101,8 @@ export default function SignUpPage() {
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
             <a
-              href="#"
               onClick={() => signIn()}
-              className="font-medium text-blue-500 transition-colors hover:text-blue-700"
+              className="font-medium text-blue-500 transition-colors hover:text-blue-700 cursor-pointer"
             >
               Sign In
             </a>
